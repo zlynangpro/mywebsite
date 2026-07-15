@@ -1,0 +1,19 @@
+media:
+  input: images
+  output: /images
+collections:
+  - name: Stories
+    label: My Stories
+    type: folder
+    path: stories
+    format: html
+    fields:
+      - name: title
+        label: Story Title
+        type: string
+      - name: date
+        label: Publish Date
+        type: date
+      - name: body
+        label: Write your story here
+        type: rich-text

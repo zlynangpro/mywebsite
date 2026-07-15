@@ -1,10 +1,10 @@
 media:
   input: images
   output: /images
-collections:
+content:
   - name: Stories
     label: My Stories
-    type: folder
+    type: collection
     path: stories
     format: html
     fields:

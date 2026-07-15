@@ -8,22 +8,60 @@ content:
     path: stories.json
     format: json
     fields:
-      - name: senarai
-        label: Koleksi Cerita Anda
-        type: list
+      - name: cerita1
+        label: "📖 --- SLOT CERITA 1 ---"
+        type: object
         fields:
           - name: title
-            label: Tajuk Cerita
+            label: Tajuk Cerita 1
             type: string
           - name: genre
-            label: Genre (e.g., Hutan Mistis, Kerajaan Lautan)
+            label: Genre Cerita 1
             type: string
           - name: image
-            label: Cover Image URL (Paste any Unsplash link!)
+            label: Cover Image URL 1
             type: string
           - name: excerpt
-            label: Story Excerpt (Short description for card)
+            label: Sinopsis Pendek 1
             type: string
           - name: body
-            label: Write your story here
+            label: Tulis Cerita 1 Di Sini
+            type: rich-text
+      - name: cerita2
+        label: "📖 --- SLOT CERITA 2 ---"
+        type: object
+        fields:
+          - name: title
+            label: Tajuk Cerita 2
+            type: string
+          - name: genre
+            label: Genre Cerita 2
+            type: string
+          - name: image
+            label: Cover Image URL 2
+            type: string
+          - name: excerpt
+            label: Sinopsis Pendek 2
+            type: string
+          - name: body
+            label: Tulis Cerita 2 Di Sini
+            type: rich-text
+      - name: cerita3
+        label: "📖 --- SLOT CERITA 3 ---"
+        type: object
+        fields:
+          - name: title
+            label: Tajuk Cerita 3
+            type: string
+          - name: genre
+            label: Genre Cerita 3
+            type: string
+          - name: image
+            label: Cover Image URL 3
+            type: string
+          - name: excerpt
+            label: Sinopsis Pendek 3
+            type: string
+          - name: body
+            label: Tulis Cerita 3 Di Sini
             type: rich-text

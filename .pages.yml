@@ -2,18 +2,22 @@ media:
   input: images
   output: /images
 content:
-  - name: Stories
+  - name: stories
     label: My Stories
-    type: collection
-    path: stories
-    format: html
+    type: file
+    path: stories.json
+    format: json
     fields:
-      - name: title
-        label: Story Title
-        type: string
-      - name: date
-        label: Publish Date
-        type: date
-      - name: body
-        label: Write your story here
-        type: rich-text
+      - name: items
+        label: Stories List
+        type: list
+        fields:
+          - name: title
+            label: Story Title
+            type: string
+          - name: date
+            label: Publish Date
+            type: date
+          - name: body
+            label: Write your story here
+            type: rich-text

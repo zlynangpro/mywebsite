@@ -4,11 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hikayat Fantasi - Perpustakaan Dongeng Ajaib</title>
-    <!-- Mengimport Google Fonts untuk vibe magis dan pembacaan yang selesa -->
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Lora:ital,wght@0,400;0,600;1,400&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
     <style>
-        /* CSS3 Variables untuk konsistensi warna tema magis */
         :root {
             --bg-cosmic: #0a0b10;
             --bg-card: rgba(20, 22, 37, 0.6);
@@ -19,7 +17,6 @@
             --transition-smooth: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
         }
 
-        /* Reset asas */
         * {
             margin: 0;
             padding: 0;
@@ -38,7 +35,6 @@
             line-height: 1.6;
         }
 
-        /* Header & Hero Section */
         header {
             text-align: center;
             padding: 80px 20px 40px 20px;
@@ -92,7 +88,6 @@
             font-style: italic;
         }
 
-        /* Grid Cerita */
         .story-container {
             max-width: 1200px;
             margin: 0 auto;
@@ -103,7 +98,6 @@
             min-height: 400px;
         }
 
-        /* Kad Cerita (Glassmorphism & Gold Border) */
         .story-card {
             background: var(--bg-card);
             border: 1px solid rgba(223, 177, 91, 0.15);
@@ -165,7 +159,6 @@
             font-weight: 300;
         }
 
-        /* Gambar Kad Cerita */
         .story-img-container {
             width: 100%;
             height: 180px;
@@ -187,7 +180,6 @@
             transform: scale(1.1);
         }
 
-        /* Butang Baca */
         .btn-read {
             background: transparent;
             border: 1.5px solid var(--gold-primary);
@@ -208,7 +200,6 @@
             box-shadow: 0 0 15px var(--gold-glow);
         }
 
-        /* Modal Pembaca Cerita */
         .story-modal {
             position: fixed;
             top: 0;
@@ -250,7 +241,6 @@
             transform: translateY(0);
         }
 
-        /* Butang Tutup Modal */
         .close-btn {
             position: absolute;
             top: 20px;
@@ -268,7 +258,6 @@
             transform: rotate(90deg);
         }
 
-        /* Gambar Hero Modal */
         .modal-hero-img {
             width: 100%;
             height: 300px;
@@ -279,7 +268,6 @@
             box-shadow: 0 10px 20px rgba(0,0,0,0.5);
         }
 
-        /* Gaya Penulisan Cerita dalam Modal */
         .modal-body h2 {
             font-family: 'Cinzel', serif;
             font-size: 2.2rem;
@@ -307,7 +295,6 @@
             text-align: justify;
         }
 
-        /* Custom Scrollbar untuk Modal */
         .modal-content::-webkit-scrollbar {
             width: 8px;
         }
@@ -322,7 +309,6 @@
             border-radius: 10px;
         }
 
-        /* Footer */
         footer {
             text-align: center;
             padding: 60px 20px;
@@ -336,7 +322,6 @@
             color: var(--gold-primary);
         }
 
-        /* Responsive Design */
         @media (max-width: 600px) {
             header h1 {
                 font-size: 2.2rem;
@@ -352,33 +337,28 @@
 </head>
 <body>
 
-    <!-- Header / Hero -->
     <header>
         <h1>Hikayat Fantasi</h1>
         <p>Selamat datang ke gerbang khayalan. Terokai dunia luar biasa di mana keajaiban tidak pernah tidur dan bintang boleh berbicara.</p>
 
-        <!-- Bar Carian -->
         <div class="search-container">
             <input type="text" id="searchInput" placeholder="Cari tajuk atau genre cerita...">
         </div>
     </header>
 
-    <!-- Story Grid Container -->
     <main class="story-container" id="storyGrid">
-        <!-- Cerita dijana oleh JavaScript di sini -->
+        <!-- JS Loader -->
     </main>
 
-    <!-- Modal Reader -->
     <div class="story-modal" id="storyModal">
         <div class="modal-content">
             <button class="close-btn" id="closeModal" aria-label="Tutup Cerita">×</button>
             <div class="modal-body" id="modalBody">
-                <!-- Kandungan cerita dijana oleh JS -->
+                <!-- Content Loader -->
             </div>
         </div>
     </div>
 
-    <!-- Footer -->
     <footer>
         <p>© 2026 Hikayat Fantasi. Ditulis dengan <span>♥</span> untuk pencinta keajaiban.</p>
     </footer>
@@ -392,7 +372,6 @@
 
         let ceritaDongeng = [];
 
-        // 4 Cerita Simpanan Asal (Backup jika CMS belum diisi)
         const mockStories = [
             {
                 id: 101,
@@ -452,20 +431,15 @@
             }
         ];
 
-        // Memaparkan kad cerita pada grid halaman utama
         function janaKadCerita(senaraiCerita) {
             storyGrid.innerHTML = '';
-
             if (senaraiCerita.length === 0) {
-                storyGrid.innerHTML = '<p style="text-align:center; grid-column: 1/-1; color: var(--text-muted); font-style: italic;">Tiada dongeng yang sepadan dengan carian magis anda...</p>';
+                storyGrid.innerHTML = '<p style="text-align:center; grid-column: 1/-1; color: var(--text-muted); font-style: italic;">Tiada dongeng yang sepadan...</p>';
                 return;
             }
-
             senaraiCerita.forEach(cerita => {
                 const card = document.createElement('div');
                 card.className = 'story-card';
-                card.setAttribute('data-id', cerita.id);
-                
                 card.innerHTML = `
                     <div>
                         <div class="story-img-container">
@@ -477,13 +451,11 @@
                     </div>
                     <button class="btn-read">Baca Cerita</button>
                 `;
-                
                 card.addEventListener('click', () => bukaPembacaCerita(cerita.id));
                 storyGrid.appendChild(card);
             });
         }
 
-        // Tapisan Carian Masa-Nyata (Real-time Search)
         searchInput.addEventListener('input', (e) => {
             const kataKunci = e.target.value.toLowerCase();
             const ceritaDitapis = ceritaDongeng.filter(cerita => 
@@ -493,7 +465,6 @@
             janaKadCerita(ceritaDitapis);
         });
 
-        // Membuka Tingkap Pembaca Cerita Penuh
         function bukaPembacaCerita(id) {
             const cerita = ceritaDongeng.find(c => c.id === id);
             if (!cerita) return;
@@ -513,61 +484,43 @@
                 <img src="${cerita.image}" alt="Ilustrasi ${cerita.title}" class="modal-hero-img">
                 <div class="modal-genre">${cerita.genre}</div>
                 <h2>${cerita.title}</h2>
-                <div class="modal-text">
-                    ${perengganHTML}
-                </div>
+                <div class="modal-text">${perengganHTML}</div>
             `;
-
             storyModal.classList.add('active');
             document.body.style.overflow = 'hidden'; 
         }
 
-        // Menutup Tingkap Pembaca Cerita
         function tutupPembacaCerita() {
             storyModal.classList.remove('active');
             document.body.style.overflow = 'auto'; 
         }
 
         closeModal.addEventListener('click', tutupPembacaCerita);
-        
-        storyModal.addEventListener('click', (e) => {
-            if (e.target === storyModal) tutupPembacaCerita();
-        });
+        storyModal.addEventListener('click', (e) => { if (e.target === storyModal) tutupPembacaCerita(); });
+        document.addEventListener('keydown', (e) => { if (e.key === 'Escape') tutupPembacaCerita(); });
 
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && storyModal.classList.contains('active')) {
-                tutupPembacaCerita();
-            }
-        });
-
-        // MEMATUHI KELAKUAN PENGAMBILAN DATA BARU (MAP CMS)
+        // MEMATUHI KELAKUAN PENGAMBILAN DATA BARU (SENARAI BANYAK)
         window.addEventListener('DOMContentLoaded', () => {
             fetch('/stories.json')
-                .then(response => {
-                    if (!response.ok) throw new Error('No custom story yet.');
-                    return response.json();
-                })
+                .then(response => response.json())
                 .then(data => {
-                    // Semak jika cerita daripada CMS telah ditulis lengkap
-                    if (data && data.title) {
-                        ceritaDongeng = [
-                            {
-                                id: 1,
-                                title: data.title,
-                                genre: data.genre || "Fantasi",
-                                image: data.image || "https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=800&q=80",
-                                excerpt: data.excerpt || "Klik untuk membaca kisah magis ini...",
-                                content: data.body ? [data.body] : ["Tiada kandungan."]
-                            },
-                            ...mockStories
-                        ];
+                    if (data && data.senarai && Array.isArray(data.senarai)) {
+                        const cmsStories = data.senarai.map((story, index) => ({
+                            id: index + 1,
+                            title: story.title || "Cerita Tanpa Tajuk",
+                            genre: story.genre || "Fantasi",
+                            image: story.image || "https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=800&q=80",
+                            excerpt: story.excerpt || "Klik untuk membaca...",
+                            content: story.body ? [story.body] : ["Tiada kandungan."]
+                        }));
+                        ceritaDongeng = [...cmsStories, ...mockStories];
                     } else {
                         ceritaDongeng = mockStories;
                     }
                     janaKadCerita(ceritaDongeng);
                 })
                 .catch(err => {
-                    console.log("Loading default magical tales:", err);
+                    console.log("Loading default stories:", err);
                     ceritaDongeng = mockStories;
                     janaKadCerita(ceritaDongeng);
                 });

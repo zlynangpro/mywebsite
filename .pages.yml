@@ -15,6 +15,15 @@ content:
           - name: title
             label: Story Title
             type: string
+          - name: genre
+            label: Genre (e.g., Hutan Mistis, Kerajaan Lautan)
+            type: string
+          - name: image
+            label: Cover Image URL (You can paste any Unsplash image link!)
+            type: string
+          - name: excerpt
+            label: Story Excerpt (Short description for the card)
+            type: string
           - name: date
             label: Publish Date
             type: date

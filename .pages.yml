@@ -4,8 +4,8 @@ media:
 content:
   - name: stories
     label: My Stories
-    type: folder
-    path: stories
+    type: file
+    path: stories.json
     format: json
     fields:
       - name: title
@@ -15,14 +15,11 @@ content:
         label: Genre (e.g., Hutan Mistis, Kerajaan Lautan)
         type: string
       - name: image
-        label: Cover Image URL (Paste any Unsplash image link!)
+        label: Cover Image URL (Paste any Unsplash link!)
         type: string
       - name: excerpt
-        label: Story Excerpt (Short description for the card)
+        label: Story Excerpt (Short description for card)
         type: string
-      - name: date
-        label: Publish Date
-        type: date
       - name: body
         label: Write your story here
         type: rich-text

@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hikayat Fantasi - Perpustakaan Dongeng Ajaib</title>
+    <!-- Mengimport Google Fonts untuk vibe magis dan pembacaan yang selesa -->
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Lora:ital,wght@0,400;0,600;1,400&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+        /* CSS3 Variables untuk konsistensi warna tema magis */
+        :root {
+            --bg-cosmic: #0a0b10;
+            --bg-card: rgba(20, 22, 37, 0.6);
+            --gold-primary: #dfb15b;
+            --gold-glow: #ffdf9e;
+            --text-light: #f5f6fa;
+            --text-muted: #a4b0be;
+            --transition-smooth: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+
+/* Reset asas */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-cosmic);
+            color: var(--text-light);
+            background-image: 
+                radial-gradient(circle at 20% 30%, rgba(223, 177, 91, 0.05) 0%, transparent 40%),
+                radial-gradient(circle at 80% 70%, rgba(138, 43, 226, 0.08) 0%, transparent 50%);
+            background-attachment: fixed;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+/* Header & Hero Section */
+        header {
+            text-align: center;
+            padding: 80px 20px 40px 20px;
+            position: relative;
+        }
+
+header h1 {
+            font-family: 'Cinzel', serif;
+            font-size: 3rem;
+            color: var(--gold-primary);
+            text-shadow: 0 0 15px rgba(223, 177, 91, 0.3);
+            letter-spacing: 3px;
+            margin-bottom: 10px;
+        }
+
+header p {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            font-weight: 300;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+.search-container {
+            max-width: 500px;
+            margin: 30px auto 0 auto;
+            position: relative;
+        }
+
+#searchInput {
+            width: 100%;
+            padding: 15px 25px;
+            border-radius: 30px;
+            background: rgba(20, 22, 37, 0.8);
+            border: 1px solid rgba(223, 177, 91, 0.3);
+            color: var(--text-light);
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            outline: none;
+            transition: var(--transition-smooth);
+            box-shadow: inset 0 2px 5px rgba(0,0,0,0.5);
+        }
+
+#searchInput:focus {
+            border-color: var(--gold-primary);
+            box-shadow: 0 0 20px rgba(223, 177, 91, 0.2), inset 0 2px 5px rgba(0,0,0,0.5);
+        }
+
+#searchInput::placeholder {
+            color: rgba(164, 176, 190, 0.6);
+            font-style: italic;
+        }
+
+/* Grid Cerita */
+        .story-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            min-height: 400px; /* Supaya layout tidak terjejas bila tiada carian */
+        }
+
+/* Kad Cerita (Glassmorphism & Gold Border) */
+        .story-card {
+            background: var(--bg-card);
+            border: 1px solid rgba(223, 177, 91, 0.15);
+            border-radius: 16px;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            transition: var(--transition-smooth);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+.story-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(223, 177, 91, 0.03), transparent);
+            transform: translateX(-100%);
+            transition: 0.6s;
+        }
+
+.story-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--gold-primary);
+            box-shadow: 0 10px 25px rgba(223, 177, 91, 0.15);
+        }
+
+.story-card:hover::before {
+            transform: translateX(100%);
+        }
+
+.story-genre {
+            font-family: 'Cinzel', serif;
+            font-size: 0.8rem;
+            color: var(--gold-primary);
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+        }
+
+.story-title {
+            font-family: 'Cinzel', serif;
+            font-size: 1.4rem;
+            margin-bottom: 12px;
+            color: var(--text-light);
+        }
+
+.story-excerpt {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 25px;
+            font-weight: 300;
+        }
+
+/* Gambar Kad Cerita */
+        .story-img-container {
+            width: 100%;
+            height: 180px;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 20px;
+            position: relative;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+.story-img-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+
+.story-card:hover .story-img-container img {
+            transform: scale(1.1);
+        }
+
+/* Butang Baca */
+        .btn-read {
+            background: transparent;
+            border: 1.5px solid var(--gold-primary);
+            color: var(--gold-primary);
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-family: 'Cinzel', serif;
+            font-size: 0.85rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            align-self: flex-start;
+        }
+
+.story-card:hover .btn-read {
+            background: var(--gold-primary);
+            color: var(--bg-cosmic);
+            box-shadow: 0 0 15px var(--gold-glow);
+        }
+
+/* Modal Pembaca Cerita */
+        .story-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(5, 6, 10, 0.95);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s ease;
+            padding: 20px;
+        }
+
+.story-modal.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+.modal-content {
+            background: #11131e;
+            border: 1px solid var(--gold-primary);
+            width: 100%;
+            max-width: 750px;
+            max-height: 85vh;
+            border-radius: 20px;
+            padding: 45px;
+            overflow-y: auto;
+            position: relative;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
+            transform: translateY(30px);
+            transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+
+.story-modal.active .modal-content {
+            transform: translateY(0);
+        }
+
+/* Butang Tutup Modal */
+        .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 25px;
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            font-size: 1.8rem;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+
+.close-btn:hover {
+            color: var(--gold-primary);
+            transform: rotate(90deg);
+        }
+
+/* Gambar Hero Modal (Dalam paparan bacaan) */
+        .modal-hero-img {
+            width: 100%;
+            height: 300px;
+            border-radius: 12px;
+            object-fit: cover;
+            margin-bottom: 25px;
+            border: 1px solid rgba(223, 177, 91, 0.2);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+        }
+
+/* Gaya Penulisan Cerita dalam Modal */
+        .modal-body h2 {
+            font-family: 'Cinzel', serif;
+            font-size: 2.2rem;
+            color: var(--gold-primary);
+            margin-bottom: 8px;
+            line-height: 1.3;
+        }
+
+.modal-body .modal-genre {
+            font-family: 'Cinzel', serif;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            letter-spacing: 2px;
+            margin-bottom: 30px;
+            border-bottom: 1px solid rgba(223, 177, 91, 0.2);
+            padding-bottom: 15px;
+        }
+
+.modal-body p {
+            font-family: 'Lora', serif;
+            font-size: 1.1rem;
+            color: #e4e7eb;
+            margin-bottom: 20px;
+            text-indent: 30px; /* Lekukan perenggan ala novel */
+            text-align: justify;
+        }
+
+/* Custom Scrollbar untuk Modal */
+        .modal-content::-webkit-scrollbar {
+            width: 8px;
+        }
+
+.modal-content::-webkit-scrollbar-track {
+            background: #0f111a;
+            border-radius: 10px;
+        }
+
+.modal-content::-webkit-scrollbar-thumb {
+            background: var(--gold-primary);
+            border-radius: 10px;
+        }
+
+/* Footer */
+        footer {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            border-top: 1px solid rgba(223, 177, 91, 0.05);
+            font-weight: 300;
+        }
+
+footer span {
+            color: var(--gold-primary);
+        }
+
+/* Responsive Design */
+        @media (max-width: 600px) {
+            header h1 {
+                font-size: 2.2rem;
+            }
+            .modal-content {
+                padding: 30px 20px;
+            }
+            .modal-body h2 {
+                font-size: 1.6rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Header / Hero -->
+    <header>
+        <h1>Hikayat Fantasi</h1>
+        <p>Selamat datang ke gerbang khayalan. Terokai dunia luar biasa di mana keajaiban tidak pernah tidur dan bintang boleh berbicara.</p>
+
+<!-- Bar Carian (Penambahan Baru) -->
+        <div class="search-container">
+            <input type="text" id="searchInput" placeholder="Cari tajuk atau genre cerita...">
+        </div>
+    </header>
+
+<!-- Story Grid Container -->
+    <main class="story-container" id="storyGrid">
+        <!-- Cerita akan dimasukkan secara dinamik oleh JavaScript di sini -->
+    </main>
+
+<!-- Modal Reader -->
+    <div class="story-modal" id="storyModal">
+        <div class="modal-content">
+            <button class="close-btn" id="closeModal" aria-label="Tutup Cerita">×</button>
+            <div class="modal-body" id="modalBody">
+                <!-- Kandungan penuh cerita akan dijana oleh JS -->
+            </div>
+        </div>
+    </div>
+
+<!-- Footer -->
+    <footer>
+        <p>© 2026 Hikayat Fantasi. Ditulis dengan <span>♥</span> untuk pencinta keajaiban.</p>
+    </footer>
+
+<script>
+        // Data 4 cerita fantasi pendek (Mock Data)
+        const ceritaDongeng = [
+            {
+                id: 1,
+                genre: "Bintang & Langit",
+                title: "Peniup Suling Bintang",
+                image: "https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=800&q=80",
+                excerpt: "Di hujung dunia yang gelap tanpa bulan, seorang budak lelaki meniup suling buluh yang mampu menarik jatuh bintang-bintang untuk menerangi kampungnya.",
+                content: [
+                    "Dahulu kala, di sebuah lembah bernama Malam Abadi, matahari enggan terbit dan malam adalah satu-satunya teman penduduk di situ. Mereka hidup dalam kegelapan, hanya berpandukan lampu minyak yang malap.",
+                    "Seorang budak lelaki yatim piatu bernama Elian mempunyai sebuah suling buluh yang diwarisi daripada datuknya. Datunya pernah berpesan, 'Tiup dengan hati, bukan dengan nafas. Muzik yang jujur mampu didengari oleh langit.'",
+                    "Suatu malam, ketika kegelapan terasa begitu pekat dan dingin, Elian mendaki bukit tertinggi di lembah tersebut. Dia mula meniup sulingnya. Melodi yang keluar sangat sayu namun indah, beralun seperti sungai yang tenang.",
+                    "Di angkasa raya, bintang-bintang mula mendengar. Terpesona dengan keindahan melodi Elian, sebiji bintang kecil mula meluncur turun dari langit. Ia hinggap di hujung suling Elian, bersinar dengan cahaya keemasan yang hangat.",
+                    "Sejak malam itu, setiap kali Elian meniup sulingnya, ratusan bintang akan turun bermain di lembah itu, membawa cahaya, kehangatan, dan harapan baru kepada penduduk lembah Malam Abadi yang tidak lagi takut akan kegelapan."
+                ]
+            },
+            {
+                id: 2,
+                genre: "Hutan Mistis",
+                title: "Melodi Hutan Berbisik",
+                image: "https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=800&q=80",
+                excerpt: "Hutan Larangan tidak membunuh dengan haiwan liar, tetapi dengan lagu-lagu berbisik daripada pepohon kuno yang menyimpan rahsia dunia.",
+                content: [
+                    "Semua orang tahu tentang peraturan pertama di pinggir kampung kami: Jangan sesekali masuk ke dalam Hutan Berbisik selepas matahari terbenam. Hutan itu tidak dipenuhi serigala atau raksasa, tetapi ia memiliki suara.",
+                    "Seorang gadis berani bernama Ara terpaksa melanggar peraturan itu untuk mencari ubat herba bagi ibunya yang sakit tenat. Berbekalkan sebuah tanglung malap, dia melangkah masuk ke dalam rimbunan pokok-pokok gergasi.",
+                    "Apabila angin malam mula bertiup, Ara mula mendengar bisikan. Ia tidak menakutkan, sebaliknya berbunyi seperti nyanyian koir yang sangat merdu. Pokok-pokok oak tua mula melenturkan dahan mereka, membisikkan rahsia-rahsia lama tentang air terjun penyembuh.",
+                    "Ara menyedari bahawa pokok-pokok itu tidak berniat jahat. Mereka hanya kesepian dan mahu bercerita. Dengan mendengar bisikan mereka dengan penuh hormat, pokok-pokok itu membuka jalan rahsia dan menunjukkan lokasi herba ajaib bersinar biru di celah batu.",
+                    "Ara pulang dengan selamat sebelum subuh. Dia membuktikan kepada penduduk kampung bahawa ketakutan sering kali hanyalah ketidakfahaman, dan Hutan Berbisik sebenarnya adalah penjaga rahsia yang paling setia."
+                ]
+            },
+            {
+                id: 3,
+                genre: "Dunia Haiwan Magis",
+                title: "Naga Ais yang Takut Sejuk",
+                image: "https://images.unsplash.com/photo-1478265409131-1f65c88f965c?auto=format&fit=crop&w=800&q=80",
+                excerpt: "Lumi adalah seekor naga ais kecil yang mempunyai masalah besar: dia tidak tahan sejuk dan lebih suka tidur berbantalkan selimut bulu yang tebal.",
+                content: [
+                    "Di puncak Gunung fros, semua naga ais megah dengan nafas beku mereka. Namun tidak bagi Lumi. Lumi dilahirkan dengan sisik putih berkilau, tetapi dia akan bersin setiap kali salji turun, malah dia benci memakan ais krim.",
+                    "Naga-naga lain sering mentertawakannya kerana Lumi sentiasa memakai skaf bulu merah yang dikaitnya sendiri dan lebih suka berjemur di bawah batu yang hangat.",
+                    "Satu hari, ribut salji hitam yang sangat dahsyat melanda gunung tersebut. Suhu jatuh mendadak sehingga naga-naga ais yang paling kuat sekalipun mula membeku dan kehilangan tenaga mereka. Kuasa ais mereka menjadi tidak terkawal dan membekukan diri mereka sendiri.",
+                    "Lumi, yang sudah biasa mencari alternatif untuk memanaskan diri, tahu apa yang perlu dilakukan. Dia menggunakan pengetahuannya tentang batu gunung berapi yang disimpan di dalam guanya untuk mencipta satu bulatan pemanas gergasi.",
+                    "Dia mengheret naga-naga yang sedang membeku itu ke bulatan tersebut. Kehangatan batu tersebut mencairkan ais magis yang mengikat mereka. Sejak hari itu, naga-naga lain tidak lagi mentertawakan Lumi. Mereka belajar bahawa kadang-kadang, sifat yang 'berbeza' itulah yang menyelamatkan semua."
+                ]
+            },
+            {
+                id: 4,
+                genre: "Kerajaan Lautan",
+                title: "Gadis Pembawa Hujan Laut",
+                image: "https://images.unsplash.com/photo-1518182170546-076616fd4aa8?auto=format&fit=crop&w=800&q=80",
+                excerpt: "Setiap kali air laut pasang merah, seorang gadis misteri akan muncul di pesisiran pantai, menyanyi untuk memanggil hujan yang manis.",
+                content: [
+                    "Apabila laut di Teluk Biru bertukar warna menjadi merah saga, nelayan tahu bahawa musim kemarau beracun telah tiba. Ikan-ikan akan bersembunyi di dasar yang paling dalam, dan udara menjadi sangat kering.",
+                    "Hanya seorang sahaja yang boleh menyelamatkan keadaan: Maya, seorang gadis yang tinggal di rumah api usang di tebing batu. Maya bukanlah manusia biasa; dia mempunyai kebolehan mendengar degupan jantung laut.",
+                    "Apabila laut mulai 'sakit', Maya akan berdiri di tebing paling tinggi, mendepakan tangannya, dan mula menyanyi dengan suara yang meniru bunyi ombak pecah di pantai.",
+                    "Awan-awan hitam di atas lautan akan mula berkumpul, bertindak balas terhadap suaranya. Hujan yang turun dari awan itu bukanlah air masin atau air biasa, melainkan hujan manis berbau bunga melur yang meneutralkan kembali racun merah di dalam laut.",
+                    "Selepas hujan reda, laut kembali biru dan ikan-ikan melompat gembira. Maya akan tersenyum dari jauh sebelum kembali ke rumah apinya, bersedia untuk tugasan seterusnya apabila lautan memanggil lagi."
+                ]
+            }
+        ];
+
+        const storyGrid = document.getElementById('storyGrid');
+        const storyModal = document.getElementById('storyModal');
+        const closeModal = document.getElementById('closeModal');
+        const modalBody = document.getElementById('modalBody');
+        const searchInput = document.getElementById('searchInput');
+
+        // Fungsi untuk menjana kad cerita di halaman utama (menerima array cerita)
+        function janaKadCerita(senaraiCerita) {
+            // Kosongkan grid terlebih dahulu (penting untuk fungsi carian)
+            storyGrid.innerHTML = '';
+
+            // Jika tiada cerita dijumpai
+            if (senaraiCerita.length === 0) {
+                storyGrid.innerHTML = '<p style="text-align:center; grid-column: 1/-1; color: var(--text-muted); font-style: italic;">Tiada dongeng yang sepadan dengan carian magis anda...</p>';
+                return;
+            }
+
+            senaraiCerita.forEach(cerita => {
+                const card = document.createElement('div');
+                card.className = 'story-card';
+                card.setAttribute('data-id', cerita.id);
+                
+                card.innerHTML = `
+                    <div>
+                        <div class="story-img-container">
+                            <img src="${cerita.image}" alt="Ilustrasi ${cerita.title}" loading="lazy">
+                        </div>
+                        <div class="story-genre">${cerita.genre}</div>
+                        <h3 class="story-title">${cerita.title}</h3>
+                        <p class="story-excerpt">${cerita.excerpt}</p>
+                    </div>
+                    <button class="btn-read">Baca Cerita</button>
+                `;
+                
+                // Event listener apabila kad diklik
+                card.addEventListener('click', () => bukaPembacaCerita(cerita.id));
+                
+                storyGrid.appendChild(card);
+            });
+        }
+
+        // Fungsi Carian (Real-time filtering)
+        searchInput.addEventListener('input', (e) => {
+            const kataKunci = e.target.value.toLowerCase();
+            
+            // Tapis array berdasarkan tajuk ATAU genre
+            const ceritaDitapis = ceritaDongeng.filter(cerita => 
+                cerita.title.toLowerCase().includes(kataKunci) || 
+                cerita.genre.toLowerCase().includes(kataKunci)
+            );
+            
+            // Render semula kad dengan data yang telah ditapis
+            janaKadCerita(ceritaDitapis);
+        });
+
+        // Fungsi untuk membuka modal dan membaca cerita penuh
+        function bukaPembacaCerita(id) {
+            const cerita = ceritaDongeng.find(c => c.id === id);
+            if (!cerita) return;
+
+            // Tukarkan perenggan teks kepada elemen HTML <p>
+            const perengganHTML = cerita.content.map(p => `<p>${p}</p>`).join('');
+
+            modalBody.innerHTML = `
+                <img src="${cerita.image}" alt="Ilustrasi ${cerita.title}" class="modal-hero-img">
+                <div class="modal-genre">${cerita.genre}</div>
+                <h2>${cerita.title}</h2>
+                <div class="modal-text">
+                    ${perengganHTML}
+                </div>
+            `;
+
+            storyModal.classList.add('active');
+            document.body.style.overflow = 'hidden'; // Menghalang background daripada skrol
+        }
+
+        // Fungsi untuk menutup modal
+        function tutupPembacaCerita() {
+            storyModal.classList.remove('active');
+            document.body.style.overflow = 'auto'; // Mengaktifkan semula skrol background
+        }
+
+        // Event Listeners untuk penutupan modal
+        closeModal.addEventListener('click', tutupPembacaCerita);
+        
+        // Menutup modal jika pengguna klik di luar kawasan kotak modal
+        storyModal.addEventListener('click', (e) => {
+            if (e.target === storyModal) {
+                tutupPembacaCerita();
+            }
+        });
+
+        // Menutup modal dengan menekan butang 'Escape' di keyboard
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && storyModal.classList.contains('active')) {
+                tutupPembacaCerita();
+            }
+        });
+
+        // Jalankan fungsi penjanaan kad cerita sebaik sahaja halaman dimuatkan (Papar semua cerita)
+        window.addEventListener('DOMContentLoaded', () => janaKadCerita(ceritaDongeng));
+    </script>
+</body>
+</html>

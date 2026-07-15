@@ -323,15 +323,9 @@
         }
 
         @media (max-width: 600px) {
-            header h1 {
-                font-size: 2.2rem;
-            }
-            .modal-content {
-                padding: 30px 20px;
-            }
-            .modal-body h2 {
-                font-size: 1.6rem;
-            }
+            header h1 { font-size: 2.2rem; }
+            .modal-content { padding: 30px 20px; }
+            .modal-body h2 { font-size: 1.6rem; }
         }
     </style>
 </head>
@@ -347,14 +341,14 @@
     </header>
 
     <main class="story-container" id="storyGrid">
-        <!-- JS Loader -->
+        <!-- Loader -->
     </main>
 
     <div class="story-modal" id="storyModal">
         <div class="modal-content">
             <button class="close-btn" id="closeModal" aria-label="Tutup Cerita">×</button>
             <div class="modal-body" id="modalBody">
-                <!-- Content Loader -->
+                <!-- Content -->
             </div>
         </div>
     </div>
@@ -499,24 +493,30 @@
         storyModal.addEventListener('click', (e) => { if (e.target === storyModal) tutupPembacaCerita(); });
         document.addEventListener('keydown', (e) => { if (e.key === 'Escape') tutupPembacaCerita(); });
 
-        // MEMATUHI KELAKUAN PENGAMBILAN DATA BARU (SENARAI BANYAK)
+        // MEMATUHI KELAKUAN PENGAMBILAN DATA BARU (SISTEM SLOT)
         window.addEventListener('DOMContentLoaded', () => {
             fetch('/stories.json')
                 .then(response => response.json())
                 .then(data => {
-                    if (data && data.senarai && Array.isArray(data.senarai)) {
-                        const cmsStories = data.senarai.map((story, index) => ({
-                            id: index + 1,
-                            title: story.title || "Cerita Tanpa Tajuk",
-                            genre: story.genre || "Fantasi",
-                            image: story.image || "https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=800&q=80",
-                            excerpt: story.excerpt || "Klik untuk membaca...",
-                            content: story.body ? [story.body] : ["Tiada kandungan."]
-                        }));
-                        ceritaDongeng = [...cmsStories, ...mockStories];
-                    } else {
-                        ceritaDongeng = mockStories;
+                    const cmsStories = [];
+                    
+                    // Semak dari slot cerita1 hingga cerita3
+                    for (let i = 1; i <= 3; i++) {
+                        const slotKey = `cerita${i}`;
+                        if (data && data[slotKey] && data[slotKey].title) {
+                            const c = data[slotKey];
+                            cmsStories.push({
+                                id: i,
+                                title: c.title,
+                                genre: c.genre || "Fantasi",
+                                image: c.image || "https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=800&q=80",
+                                excerpt: c.excerpt || "Klik untuk membaca...",
+                                content: c.body ? [c.body] : ["Tiada kandungan."]
+                            });
+                        }
                     }
+                    
+                    ceritaDongeng = [...cmsStories, ...mockStories];
                     janaKadCerita(ceritaDongeng);
                 })
                 .catch(err => {
